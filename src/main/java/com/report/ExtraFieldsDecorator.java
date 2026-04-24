@@ -27,7 +27,6 @@ public class ExtraFieldsDecorator implements MissionSummary {
         return sb.toString();
     }
 
-    @SuppressWarnings("unchecked")
     private String formatValue(Object value, String indent) {
         StringBuilder sb = new StringBuilder();
         if (value instanceof Map) {
