@@ -2,7 +2,7 @@ spring:
   application:
     name: missions-archive
   datasource:
-    url: jdbc:postgresql://localhost:5432/missions_db
+    url: jdbc:postgresql://localhost:5432/mission_db
     username: test
     password: test
   jpa:
