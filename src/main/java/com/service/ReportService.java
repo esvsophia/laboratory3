@@ -6,7 +6,6 @@ import com.report.*;
 import com.model.Mission;
 import com.model.Curse;
 import org.springframework.stereotype.Service;
-import java.nio.charset.StandardCharsets;
 
 @Service
 public class ReportService {
@@ -16,16 +15,19 @@ public class ReportService {
         this.repository = repository;
     }
 
-    public byte[] generateReportFile(Long id, String type) {
-        MissionEntity entity = repository.findById(id).orElseThrow();
+    public String generateReport(Long id, String type) {
+        MissionEntity entity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Миссия с ID " + id + " не найдена"));
+
         Mission model = mapToModel(entity);
+
         MissionSummary summary = new BaseSummary(model);
 
         if ("full".equalsIgnoreCase(type)) {
             summary = new ExtraFieldsDecorator(summary, model.getExtraFields());
         }
 
-        return summary.getSummary().getBytes(StandardCharsets.UTF_8);
+        return summary.getSummary();
     }
 
     private Mission mapToModel(MissionEntity entity) {
