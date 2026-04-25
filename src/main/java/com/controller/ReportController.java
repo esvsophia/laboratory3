@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.nio.charset.StandardCharsets;
 
-@RestController // Важно: RestController для API
+@RestController
 @RequestMapping("/api/reports")
 public class ReportController {
     private final ReportService reportService;
