@@ -31,6 +31,12 @@ public class MissionController {
         return archiveService.findAll();
     }
 
+    @Operation(summary = "Получить одну миссию из архива")
+    @GetMapping("/{id}")
+    public MissionEntity getOneMission(@PathVariable Long id) {
+        return archiveService.findById(id);
+    }
+
     @Operation(summary = "Удалить миссию по ID")
     @DeleteMapping("/{id}")
     public void deleteMission(@PathVariable Long id) {
