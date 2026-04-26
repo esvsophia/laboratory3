@@ -5,7 +5,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/api/reports")
@@ -19,16 +18,11 @@ public class ReportController {
     @GetMapping("/{id}")
     public ResponseEntity<byte[]> downloadReport(
             @PathVariable Long id,
-            @RequestParam(value = "type", defaultValue = "brief") String type) {
-
-        String reportText = reportService.generateReport(id, type);
-
-        byte[] reportData = reportText.getBytes(StandardCharsets.UTF_8);
-
-        String fileName = "mission_report_" + id + ".txt";
+            @RequestParam(defaultValue = "full") String type) {
+        byte[] reportData = reportService.generateReportFile(id, type);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=mission_report_" + id + ".txt")
                 .contentType(MediaType.TEXT_PLAIN)
                 .body(reportData);
     }
